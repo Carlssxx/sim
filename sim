@@ -1,0 +1,53 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BlueWindowWithButton {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+
+    private static void createAndShowGUI() {
+        // Cria a janela
+        JFrame frame = new JFrame("Blue Window With Button");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+
+        // Define o layout da janela como BorderLayout
+        frame.setLayout(new BorderLayout());
+
+        // Painel para o botão
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        // Cria o botão
+        JButton button = new JButton("Abrir Menu");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cria e mostra o menu quando o botão é clicado
+                JPopupMenu popupMenu = new JPopupMenu();
+                ImageIcon cactusIcon = new ImageIcon("cactus.png");
+                popupMenu.add(new JLabel(cactusIcon));
+                popupMenu.show(button, 0, button.getHeight());
+            }
+        });
+        buttonPanel.add(button);
+
+        // Painel para o fundo azul
+        JPanel bluePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.BLUE);
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        frame.add(bluePanel, BorderLayout.CENTER);
+
+        // Torna a janela visível
+        frame.setVisible(true);
+    }
+}

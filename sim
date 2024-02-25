@@ -1,53 +1,22 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import tkinter as tk
+from tkinter import PhotoImage
 
-public class BlueWindowWithButton {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> createAndShowGUI());
-    }
+def abrir_menu():
+    menu = tk.Toplevel(root)
+    cacto_img = PhotoImage(file="cacto.png")
+    label = tk.Label(menu, image=cacto_img)
+    label.pack()
 
-    private static void createAndShowGUI() {
-        // Cria a janela
-        JFrame frame = new JFrame("Blue Window With Button");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+root = tk.Tk()
+root.title("Blue Window With Button")
+root.geometry("400x300")
 
-        // Define o layout da janela como BorderLayout
-        frame.setLayout(new BorderLayout());
+# Define o fundo azul
+canvas = tk.Canvas(root, bg="blue", width=400, height=300)
+canvas.pack()
 
-        // Painel para o botão
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false);
-        frame.add(buttonPanel, BorderLayout.CENTER);
+# Cria o botão
+button = tk.Button(root, text="Abrir Menu", command=abrir_menu)
+button.place(relx=0.5, rely=0.5, anchor="center")
 
-        // Cria o botão
-        JButton button = new JButton("Abrir Menu");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Cria e mostra o menu quando o botão é clicado
-                JPopupMenu popupMenu = new JPopupMenu();
-                ImageIcon cactusIcon = new ImageIcon("cactus.png");
-                popupMenu.add(new JLabel(cactusIcon));
-                popupMenu.show(button, 0, button.getHeight());
-            }
-        });
-        buttonPanel.add(button);
-
-        // Painel para o fundo azul
-        JPanel bluePanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.BLUE);
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        };
-        frame.add(bluePanel, BorderLayout.CENTER);
-
-        // Torna a janela visível
-        frame.setVisible(true);
-    }
-}
+root.mainloop()
